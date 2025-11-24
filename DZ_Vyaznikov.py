@@ -1,3 +1,5 @@
+import functools
+
 class Student:
     def __init__(self, name, family, gender):
         self.name = name
@@ -132,11 +134,11 @@ class Sravni_st:
         itog = ''
         #print(Student.homework(self.persona1))
         #print(Student.homework(self.persona2))
-        if Student.homework(self.persona1) > Student.homework(self.persona2):
+        if Student.homework(self.persona1).__gt__(Student.homework(self.persona2)):
             itog = (f"Средний бал выше у студента: Имя:{self.persona2.name}"
                     f" Фамилия: {self.persona1.family}"
                     f"{Student.homework(self.persona1)} ")
-        elif Student.homework(self.persona1) < Student.homework(self.persona2):
+        elif Student.homework(self.persona1).__lt__(Student.homework(self.persona2)):
             itog = (f"Средний бал выше у студента: {self.persona2.name}"
                     f" {self.persona2.family} "
                     f"{Student.homework(self.persona2)} ")
@@ -150,11 +152,11 @@ class Sravni_lec:
         self.persona1 = persona1
         self.persona2 = persona2
         itog = ''
-        if Lecturer.lecture(self.persona1) > Lecturer.lecture(self.persona2):
+        if Lecturer.lecture(self.persona1).__gt__(Lecturer.lecture(self.persona2)):
             itog = (f"Средний бал выше у лектора: {self.persona1.name}"
                     f" {self.persona1.family}"
                     f" {Lecturer.lecture(self.persona1)} ")
-        elif Lecturer.lecture(self.persona1) < Lecturer.lecture(self.persona2):
+        elif Lecturer.lecture(self.persona1).__lt__(Lecturer.lecture(self.persona2)):
             itog = (f"Средний бал выше у лектора: {self.persona2.name}"
                     f" {self.persona2.family} "
                     f"{Lecturer.lecture(self.persona2)} ")
