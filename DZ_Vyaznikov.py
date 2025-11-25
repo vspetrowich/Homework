@@ -56,17 +56,21 @@ class Student:
                 f"Курсы в процессе изучения: {', '.join(self.courses_in_progress)}\n"
                 f"Завершенные курсы: {', '.join(self.finished_courses)}")
 
+
     def ocenki_po_course(stud1, course):
-        stud = stud1
+        count = 0
+        sred = 0.0
         list1 = []
-        list1 = stud.grades.get(course)
-        return list1
+        for pers in stud1:
+            list1 = pers.grades.get(course)
+            if list1 is not None:
+                sred += sum(list1)/len(list1)
+                count += 1
+        if count != 0:
+            sred = sred / count
+        return sred
 
 
-    # def sred_ocenka(self, spisok):
-    #     print(spisok)
-    #     #print(course)
-    #     return
 
 
 class Mentor:
@@ -132,8 +136,6 @@ class Sravni_st:
         self.persona1 = persona1
         self.persona2 = persona2
         itog = ''
-        #print(Student.homework(self.persona1))
-        #print(Student.homework(self.persona2))
         if Student.homework(self.persona1).__gt__(Student.homework(self.persona2)):
             itog = (f"Средний бал выше у студента: Имя:{self.persona2.name}"
                     f" Фамилия: {self.persona1.family}"
@@ -165,31 +167,18 @@ class Sravni_lec:
         print(itog)
         return
 
+
 class Sred_ocenka:
     def __init__(self, spisok, course):
         self.course = course
-        count = 0
-        sred = 0.0
-        if isinstance(spisok[0], Student):
-            for znach in spisok:
-                list1 = Student.ocenki_po_course(znach, course)
-                if list1 is not None:
-                    sred += sum(list1)/len(list1)
-                    count += 1
-            if count != 0:
-                sred = sred / count
+        if spisok.__eq__([]):
+            print(f"Список пуст. Оценок по курсу : {course} нет")
+        elif isinstance(spisok[0], Student):
+            sred = Student.ocenki_po_course(spisok, course)
             print(f"Средняя оценка студентов по курсу: {course} = {round(sred,1)}")
         elif isinstance(spisok[0], Lecturer):
-            for znach in spisok:
-                list1 = Student.ocenki_po_course(znach, course)
-                if list1 is not None:
-                    sred += sum(list1)/len(list1)
-                    count += 1
-            if count != 0:
-                sred = sred / count
+            sred = Student.ocenki_po_course(spisok, course)
             print(f"Средняя оценка лекторов по курсу: {course} = {round(sred,1)}")
-        else :
-            print(f"Оценок по курсу : {course} нет")
         return
 
 
@@ -257,7 +246,7 @@ print(student1.rate_lecture(student1, lecturer2, 'C++', 9)) # None
 Sravni_lec(lecturer2, lecturer1)
 
 #задание 4 средняя оценка за ДЗ по конкретному курсу
-Sred_ocenka([student, student1], 'Python')
+Sred_ocenka([student1, student], 'Python')
 #задание 4 средняя оценка за лекции по конкретному курсу
 Sred_ocenka([lecturer1, lecturer2], 'Python')
 
