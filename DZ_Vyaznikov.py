@@ -1,5 +1,6 @@
 import functools
 
+
 class Student:
     def __init__(self, name, family, gender):
         self.name = name
@@ -72,6 +73,25 @@ class Student:
 
 
 
+    def  Sravni_st(self, persona1, persona2):
+        self.persona1 = persona1
+        self.persona2 = persona2
+        itog = ''
+        grade_stud1 = Sravnim(self.persona1.name, Student.homework(self.persona1))
+        grade_stud2 = Sravnim(self.persona2.name, Student.homework(self.persona2))
+        if  grade_stud1 > grade_stud2 :
+            itog = (f"Средний бал выше у студента: {self.persona1.name}"
+                    f" {self.persona1.family}"
+                    f" {Student.homework(self.persona1)} ")
+        elif grade_stud1 < grade_stud2 :
+            itog = (f"Средний бал выше у студента: {self.persona2.name}"
+                    f" {self.persona2.family} "
+                    f" {Student.homework(self.persona2)} ")
+        elif grade_stud1 == grade_stud2:
+            itog = (f"Оценки у студентов равны: {Student.homework(self.persona1)}")
+        print(itog)
+        return
+
 
 class Mentor:
     def __init__(self, name, family):
@@ -131,41 +151,46 @@ class Reviewer(Mentor):
         return (f"Имя:{self.name}\nФамилия: {self.family}")
 
 
-class Sravni_st:
-    def  __init__(self, persona1, persona2):
-        self.persona1 = persona1
-        self.persona2 = persona2
-        itog = ''
-        if Student.homework(self.persona1).__gt__(Student.homework(self.persona2)):
-            itog = (f"Средний бал выше у студента: Имя:{self.persona2.name}"
-                    f" Фамилия: {self.persona1.family}"
-                    f"{Student.homework(self.persona1)} ")
-        elif Student.homework(self.persona1).__lt__(Student.homework(self.persona2)):
-            itog = (f"Средний бал выше у студента: {self.persona2.name}"
-                    f" {self.persona2.family} "
-                    f"{Student.homework(self.persona2)} ")
-        else:
-            itog = (f"Оценки у студентов равны: {Student.homework(self.persona1)}")
-        print(itog)
-        return
+
+class Sravnim:
+    def __init__(self, fio, balls):
+        self.fio = fio
+        self.balls = balls
+
+    def __eq__(self, other):
+        return self.balls == other.balls
+
+    def __gt__(self, other):
+        return self.balls > other.balls
+
+    def __lt__(self, other):
+        return self.balls < other.balls
+
+
+
 
 class Sravni_lec:
     def  __init__(self, persona1, persona2):
         self.persona1 = persona1
         self.persona2 = persona2
         itog = ''
-        if Lecturer.lecture(self.persona1).__gt__(Lecturer.lecture(self.persona2)):
+        grade_lec1 = Sravnim(self.persona1.name, Student.homework(self.persona1))
+        grade_lec2 = Sravnim(self.persona2.name, Student.homework(self.persona2))
+        if grade_lec1  > grade_lec1 :
             itog = (f"Средний бал выше у лектора: {self.persona1.name}"
                     f" {self.persona1.family}"
                     f" {Lecturer.lecture(self.persona1)} ")
-        elif Lecturer.lecture(self.persona1).__lt__(Lecturer.lecture(self.persona2)):
+        elif grade_lec1 < grade_lec2 :
             itog = (f"Средний бал выше у лектора: {self.persona2.name}"
                     f" {self.persona2.family} "
                     f"{Lecturer.lecture(self.persona2)} ")
-        else:
+        elif grade_lec1 == grade_lec2:
             itog = (f"Оценки у лекторов равны: {Lecturer.lecture(self.persona1)}")
         print(itog)
         return
+
+
+
 
 
 class Sred_ocenka:
@@ -194,12 +219,12 @@ print(lecturer2.courses_attached)    # []
 print(reviewer.courses_attached)    # []
 
 # задание 2
-student = Student('Алёхина', 'Ольга', 'Ж')
+student = Student('Ольга','Алёхина' , 'Ж')
 
 student.courses_in_progress += ['Python', 'Java']
 student.finished_courses += ['Git']
-student.grades['Java'] = [10, 9, 5, 8]
-student.grades['Python'] = [7, 8, 8]
+student.grades['Java'] = [8, 9, 9, 8]
+student.grades['Python'] = [8, 10, 9]
 
 lecturer2.courses_attached += ['Python', 'C++']
 reviewer.courses_attached += ['Python', 'C++']
@@ -221,13 +246,13 @@ student1 = Student('Иван', 'Воронков', 'М')
 student1.finished_courses += ['Git']
 student1.courses_in_progress += ['Python', 'C++']
 student1.grades['Python'] = [8, 9, 8]
-student1.grades['C++'] = [9, 9, 10]
+student1.grades['C++'] = [9, 9, 10, 8]
 print('Выводим информацию про второго студента для статистики :')
 print(student1)
 # задание 3 часть 2 сравниваем студентов
 # print(student1.homework())
 # print(student.homework())
-Sravni_st(student, student1)
+student.Sravni_st(student, student1)
 
 # добавляем 2-го лектора и 2-го эксперта
 lecturer1 = Lecturer('Антон', 'Павлов')
@@ -249,4 +274,5 @@ Sravni_lec(lecturer2, lecturer1)
 Sred_ocenka([student1, student], 'Python')
 #задание 4 средняя оценка за лекции по конкретному курсу
 Sred_ocenka([lecturer1, lecturer2], 'Python')
+#print(student.grades['Python'] > student1.grades['Python'] )
 
