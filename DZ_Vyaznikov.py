@@ -174,8 +174,8 @@ class Sravni_lec:
         self.persona1 = persona1
         self.persona2 = persona2
         itog = ''
-        grade_lec1 = Sravnim(self.persona1.name, Student.homework(self.persona1))
-        grade_lec2 = Sravnim(self.persona2.name, Student.homework(self.persona2))
+        grade_lec1 = Sravnim(self.persona1.name, Lecturer.lecture(self.persona1))
+        grade_lec2 = Sravnim(self.persona2.name, Lecturer.lecture(self.persona2))
         if grade_lec1  > grade_lec1 :
             itog = (f"Средний бал выше у лектора: {self.persona1.name}"
                     f" {self.persona1.family}"
